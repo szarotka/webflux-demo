@@ -16,7 +16,7 @@ public class AddPostController {
     private final AddPostService addPostService;
 
     @PutMapping("add")
-    public Mono<AddPostResponse> addPost(@RequestBody AddPostRequest addPostRequest) {
+    public Mono<AddPostResponse> addPost(@RequestBody Mono<AddPostRequest> addPostRequest) {
         return addPostService.addPost(addPostRequest);
     }
 }

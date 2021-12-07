@@ -11,14 +11,14 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class AddPostService {
 
-  private final PostDbMapper postDbMapper;
-  private final PostDbRepository postDbRepository;
-  private final AddPostResponseMapper addPostResponseMapper;
+    private final PostDbMapper postDbMapper;
+    private final PostDbRepository postDbRepository;
+    private final AddPostResponseMapper addPostResponseMapper;
 
-  public Mono<AddPostResponse> addPost(AddPostRequest post) {
-    return Mono.just(post)
-        .map(postDbMapper::map)
-        .flatMap(postDbRepository::save)
-        .map(addPostResponseMapper::map);
-  }
+    public Mono<AddPostResponse> addPost(Mono<AddPostRequest> post) {
+        return post
+                .map(postDbMapper::map)
+                .flatMap(postDbRepository::save)
+                .map(addPostResponseMapper::map);
+    }
 }
