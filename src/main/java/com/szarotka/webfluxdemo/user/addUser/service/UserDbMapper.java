@@ -1,19 +1,19 @@
-package com.szarotka.webfluxdemo.posting.addPost.service;
+package com.szarotka.webfluxdemo.user.addUser.service;
 
 import java.time.LocalDateTime;
 
 import com.szarotka.webfluxdemo.common.mapper.IdMapper;
-import com.szarotka.webfluxdemo.posting.addPost.AddPostRequest;
-import com.szarotka.webfluxdemo.posting.common.db.PostDb;
+import com.szarotka.webfluxdemo.user.addUser.AddUserRequest;
+import com.szarotka.webfluxdemo.user.common.db.UserDb;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(uses = IdMapper.class)
-public interface PostDbMapper {
+public interface UserDbMapper {
 
   @Mapping(target = "creationDate", expression = "java( getCurrentDateTime() )")
   @Mapping(target = "id", ignore = true)
-  PostDb map(AddPostRequest postRequest);
+  UserDb map(AddUserRequest addUserRequest);
 
   default LocalDateTime getCurrentDateTime() {
     return LocalDateTime.now();

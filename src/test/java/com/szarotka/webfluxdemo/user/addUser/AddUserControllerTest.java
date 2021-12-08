@@ -1,4 +1,4 @@
-package com.szarotka.webfluxdemo.posting.addPost;
+package com.szarotka.webfluxdemo.user.addUser;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,29 +9,31 @@ import org.springframework.web.reactive.function.BodyInserters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AddPostControllerV2Test {
+public class AddUserControllerTest {
 
     @Autowired
     private WebTestClient webClient;
 
     @Test
-    void addPost() {
+    void addUser() {
         // GIVEN
-        var content = "message";
-        var addPostRequest = new AddPostRequest(content);
+        var firstName = "Jan";
+        var lastName = "Kowalski";
+        var addUserRequest = new AddUserRequest(firstName, lastName);
 
         // WHEN
         var response =
                 webClient
                         .put()
-                        .uri("/post/v2/add")
+                        .uri("/user/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromValue(addPostRequest))
+                        .body(BodyInserters.fromValue(addUserRequest))
                         .exchange()
                         .expectStatus()
                         .isOk()
-                        .expectBody(AddPostResponse.class)
+                        .expectBody(AddUserResponse.class)
                         .returnResult()
                         .getResponseBody();
 
@@ -39,6 +41,7 @@ class AddPostControllerV2Test {
         assertThat(response).isNotNull();
         assertThat(response.getId()).isNotNull();
         assertThat(response.getCreationDate()).isNotNull();
-        assertThat(response.getContent()).isEqualTo(content);
+        assertThat(response.getFirstName()).isEqualTo(firstName);
+        assertThat(response.getLastName()).isEqualTo(lastName);
     }
 }

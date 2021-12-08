@@ -1,8 +1,8 @@
-package com.szarotka.webfluxdemo.posting.findPosts;
+package com.szarotka.webfluxdemo.user.findUser;
 
-import com.szarotka.webfluxdemo.posting.addPost.AddPostRequest;
-import com.szarotka.webfluxdemo.posting.addPost.AddPostResponse;
-import com.szarotka.webfluxdemo.posting.common.db.PostDbRepository;
+import com.szarotka.webfluxdemo.user.addUser.AddUserResponse;
+import com.szarotka.webfluxdemo.user.addUser.AddUserRequest;
+import com.szarotka.webfluxdemo.user.common.db.UserDbRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,30 +13,30 @@ import org.springframework.web.reactive.function.BodyInserters;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FindPostsControllerTest {
+class FindUserControllerTest {
 
     @Autowired
     private WebTestClient webClient;
 
     @Autowired
-    private PostDbRepository postDbRepository;
+    private UserDbRepository userDbRepository;
 
     @Test
-    void FindPosts() {
+    void findUsersTest() {
         // GIVEN
         var userId = 123;
-        postDbRepository.deleteAll().block();
-        addPost();
+        userDbRepository.deleteAll().block();
+        addUser();
 
         // WHEN
         var response =
                 webClient
                         .get()
-                        .uri("/post/findPosts/{userId}", userId)
+                        .uri("/user/findUsers")
                         .exchange()
                         .expectStatus()
                         .isOk()
-                        .expectBodyList(FindPostsResponse.class)
+                        .expectBodyList(FindUserResponse.class)
                         .returnResult()
                         .getResponseBody();
 
@@ -45,19 +45,20 @@ class FindPostsControllerTest {
         assertThat(response).hasSize(1);
     }
 
-    private void addPost() {
-        var content = "message";
-        var addPostRequest = new AddPostRequest(content);
+    private void addUser() {
+        var firstName = "Jan";
+        var lastName = "Kowalski";
+        var addUserRequest = new AddUserRequest(firstName, lastName);
 
         webClient
                 .put()
-                .uri("/post/add")
+                .uri("/user/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(addPostRequest))
+                .body(BodyInserters.fromValue(addUserRequest))
                 .exchange()
                 .expectStatus()
                 .isOk()
-                .expectBody(AddPostResponse.class)
+                .expectBody(AddUserResponse.class)
                 .returnResult();
     }
 }

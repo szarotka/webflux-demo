@@ -4,8 +4,8 @@
 http://localhost:8080/swagger-ui.html
 
 ## 2 ways to define REST services
-1. @RestController -> AddPostController
-2. Router Functions -> AddPostControllerV2
+1. @RestController -> AddUserController
+2. Router Functions -> AddUserControllerV2
 
 ## DB
 What database you want to use? Is asynchronous database access supported in java?

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SlowExternalService {
 
     @GetMapping("slowExternalService")
-    public String findPosts() throws InterruptedException {
+    public String callExternalService() throws InterruptedException {
         Thread.sleep(500); // 500ms == 0.5s
         return "Hello world!";
     }

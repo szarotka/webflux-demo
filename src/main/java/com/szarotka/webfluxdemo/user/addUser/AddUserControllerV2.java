@@ -1,6 +1,6 @@
-package com.szarotka.webfluxdemo.posting.addPost;
+package com.szarotka.webfluxdemo.user.addUser;
 
-import com.szarotka.webfluxdemo.posting.addPost.service.AddPostService;
+import com.szarotka.webfluxdemo.user.addUser.service.AddUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,14 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @Configuration
 @RequiredArgsConstructor
-public class AddPostControllerV2 {
+public class AddUserControllerV2 {
 
-    private final AddPostService addPostService;
+    private final AddUserService addUserService;
 
     @Bean
-    public RouterFunction<ServerResponse> addPost() {
-        return route(PUT("/post/v2/add"),
+    public RouterFunction<ServerResponse> addUser() {
+        return route(PUT("/user/v2/add"),
                 request ->
-                        ok().body(addPostService.addPost(request.body(toMono(AddPostRequest.class))), AddPostResponse.class));
+                        ok().body(addUserService.addUser(request.body(toMono(AddUserRequest.class))), AddUserResponse.class));
     }
 }

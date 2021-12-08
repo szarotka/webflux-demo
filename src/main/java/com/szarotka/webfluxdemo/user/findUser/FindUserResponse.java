@@ -1,4 +1,4 @@
-package com.szarotka.webfluxdemo.posting.addPost;
+package com.szarotka.webfluxdemo.user.findUser;
 
 import lombok.Value;
 import org.bson.types.ObjectId;
@@ -6,11 +6,13 @@ import org.bson.types.ObjectId;
 import java.time.LocalDateTime;
 
 @Value
-public class AddPostResponse {
+public class FindUserResponse {
 
     ObjectId id;
 
-    String content;
+    String firstName;
+
+    String lastName;
 
     LocalDateTime creationDate;
 }

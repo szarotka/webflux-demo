@@ -1,6 +1,6 @@
-package com.szarotka.webfluxdemo.posting.addPost;
+package com.szarotka.webfluxdemo.user.addUser;
 
-import com.szarotka.webfluxdemo.posting.addPost.service.AddPostService;
+import com.szarotka.webfluxdemo.user.addUser.service.AddUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("post")
+@RequestMapping("user")
 @AllArgsConstructor
-public class AddPostController {
+public class AddUserController {
 
-    private final AddPostService addPostService;
+    private final AddUserService addUserService;
 
     @PutMapping("add")
-    public Mono<AddPostResponse> addPost(@RequestBody Mono<AddPostRequest> addPostRequest) {
-        return addPostService.addPost(addPostRequest);
+    public Mono<AddUserResponse> addUser(@RequestBody Mono<AddUserRequest> addUserRequest) {
+        return addUserService.addUser(addUserRequest);
     }
 }

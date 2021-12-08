@@ -1,4 +1,4 @@
-package com.szarotka.webfluxdemo.posting.common.db;
+package com.szarotka.webfluxdemo.user.common.db;
 
 import lombok.Value;
 import org.bson.types.ObjectId;
@@ -8,13 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Value
-@Document(collection = "posts")
-public class PostDb {
+@Document(collection = "users")
+public class UserDb {
 
     @Id
     ObjectId id;
 
-    String content;
+    String firstName;
+
+    String lastName;
 
     LocalDateTime creationDate;
 }
